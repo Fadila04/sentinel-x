@@ -1,0 +1,31 @@
+{
+  "trained_at": "2026-10-06T07:04:28",
+  "model": "IsolationForest",
+  "n_estimators": 200,
+  "contamination": 0.01,
+  "seed": 42,
+  "training_rows": 21004,
+  "sources": [
+    "synthétique (21004 lignes)"
+  ],
+  "features": [
+    "temp_mean",
+    "temp_std",
+    "temp_slope",
+    "temp_drift",
+    "hum_mean",
+    "hum_std",
+    "hum_slope",
+    "hum_drift",
+    "gas_mean",
+    "gas_std",
+    "gas_slope",
+    "gas_drift",
+    "corr_temp_gas",
+    "slope_product"
+  ],
+  "window_points": 30,
+  "long_window_points": 150,
+  "alert_rule": "risque >= 50 pendant 5 mesures, fin sous 40",
+  "sklearn_version": "1.9.1"
+}
