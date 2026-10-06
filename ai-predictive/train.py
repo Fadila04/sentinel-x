@@ -28,6 +28,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
 import features as feat
+from alerting import risk_from_raw
 
 HERE = Path(__file__).parent
 MODEL_DIR = HERE / "models"
@@ -40,7 +41,7 @@ REAL_WARMUP = 90          # on ignore les 3 premières minutes de chaque vrai fi
 
 # Règles d'alerte utilisées par le service temps réel
 ALERT_THRESHOLD = 50      # le risque doit dépasser 50...
-CONSECUTIVE = 5           # ... pendant 5 mesures d'affilée (10 s) pour déclencher l'alerte
+CONSECUTIVE = 15          # ... pendant 15 mesures d'affilée (30 s) pour déclencher l'alerte
 CLEAR_THRESHOLD = 40      # l'alerte se lève quand le risque redescend sous 40
 
 
@@ -80,15 +81,6 @@ def load_training_features(args):
     if not parts:
         raise SystemExit("Aucune donnée d'entraînement.")
     return pd.concat(parts, ignore_index=True), sources
-
-
-def risk_from_raw(raw_scores, tau):
-    """
-    Transforme le score brut du modèle en risque de 0 à 100.
-    raw_scores : sortie de decision_function (positif = normal, négatif = anormal, 0 = frontière)
-    50 = exactement sur la frontière apprise par le modèle.
-    """
-    return 100 / (1 + np.exp(raw_scores / tau))
 
 
 def main():

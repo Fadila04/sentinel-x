@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sentinel-pm"
+version = "0.1.0"
+description = "Sentinel-X — maintenance prédictive par détection d'anomalies (Isolation Forest)"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24",
+    "pandas>=2.0",
+    "scikit-learn>=1.3",
+    "joblib>=1.3",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+viz = ["matplotlib>=3.7"]
+notebook = ["matplotlib>=3.7", "jupyter"]
+dev = ["pytest>=7.4", "ruff>=0.4", "matplotlib>=3.7"]
+
+[project.scripts]
+sentinel-pm = "sentinel_pm.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+markers = ["slow: tests de non-régression sur le pipeline complet"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "NPY"]

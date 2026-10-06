@@ -1,0 +1,29 @@
+# Configuration par défaut — reproduit exactement le notebook validé.
+seed: 42
+device_id: esp8266-01
+model_path: models/sentinel_isolation_forest.joblib
+
+simulation:
+  start: "2026-10-05 08:00"
+  train_days: 4          # période de calibration (fonctionnement normal uniquement)
+  test_days: 2           # période avec pannes injectées
+  # start / duration en minutes, relatifs au début de la période de test
+  test_events:
+    - {kind: slow_drift,    start: 300,  duration: 240}
+    - {kind: gas_spike,     start: 900,  duration: 15}
+    - {kind: frozen_sensor, start: 1300, duration: 60}
+    - {kind: overheating,   start: 1800, duration: 40}
+    - {kind: slow_drift,    start: 2300, duration: 200}
+
+features:
+  window: 15             # petite fenêtre (nb de mesures)
+  window_long: 30        # grande fenêtre (pentes, corrélation)
+
+model:
+  n_estimators: 300
+  threshold_quantile: 0.005   # percentile des scores normaux utilisé comme seuil
+  persistence: 3              # nb de mesures consécutives sous le seuil avant alerte
+  critical_factor: 2.0        # score < seuil * facteur => sévérité "critical"
+
+evaluation:
+  critical_temperature: 38.0  # seuil fixe de COMPARAISON uniquement (non utilisé par le modèle)

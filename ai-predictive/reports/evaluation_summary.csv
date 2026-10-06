@@ -1,0 +1,7 @@
+scenario,detection,delai_moyen,seuil_classique,seuil_jamais,anticipation,fausses_alertes_par_heure,precision,rappel,f1
+overheat,1.0,0.833,13.12,0.0,12.287,,,,
+gas_leak,1.0,0.88,6.327,0.0,5.447,,,,
+combined,1.0,1.98,,1.0,,,,,
+spike,1.0,0.473,,1.0,,,,,
+stuck,1.0,0.833,,1.0,,,,,
+_global,1.0,,,,,0.0,1.0,0.94,0.969

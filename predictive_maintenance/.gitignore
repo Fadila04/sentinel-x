@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Artefacts générés (régénérables via `sentinel-pm train` / `evaluate`)
+models/*.joblib
+reports/figures/*.png
+reports/*.json
